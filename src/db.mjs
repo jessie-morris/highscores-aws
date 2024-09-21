@@ -8,13 +8,13 @@ const ddbDocClient = DynamoDBDocumentClient.from(client);
 // Get the DynamoDB table name from environment variables
 const tableName = process.env.HIGHSCORE_TABLE;
 
-export async function insertScore(userId, score) {
+export async function insertScore(username, score) {
     var dataParams = {
         TableName: tableName,
         Item: {
             id: crypto.randomUUID().toString(),
             game: "Space Rogue",
-            userId: userId,
+            username: username,
             score: score,
             insertedAt: new Date().toLocaleDateString('en-ZA', { timeZone: "America/New_York" })
         }
@@ -25,7 +25,7 @@ export async function insertScore(userId, score) {
 
 export async function getHighscores() {
     var scanParams = {
-        ProjectionExpression: "userId, score",
+        ProjectionExpression: "username, score",
         TableName: tableName,
         IndexName: "leaderboardIndex",
         Limit: 10,
@@ -33,7 +33,7 @@ export async function getHighscores() {
         ExpressionAttributeValues: {
             ":v_title": "Space Rogue"
         },
-        ProjectionExpression: "userId, score",
+        ProjectionExpression: "username, score",
         ScanIndexForward: false
     };
     // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#query-property

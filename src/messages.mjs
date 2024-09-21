@@ -1,5 +1,5 @@
 export function getHighScores(scanResult) {
-    const leaderboard = scanResult.Items;
+    const leaderboard = { scores: scanResult.Items };
     const response = {
         statusCode: 200,
         body: JSON.stringify(leaderboard)
