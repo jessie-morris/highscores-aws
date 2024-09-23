@@ -1,7 +1,7 @@
 import * as db from '../db.mjs'
 import * as messages from '../messages.mjs'
 
-export const leaderboardHandler = async (event) => {
+export const saveScoreHandler = async (event) => {
     const params = JSON.parse(event.body);
     const username = params.username;
     const score = params.score;
